@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../mocks/course_mock.dart';
 import '../models/course_model.dart';
+import 'course_detail_page.dart';
 
 class CourseListPage extends StatelessWidget {
   CourseListPage({super.key});
@@ -115,9 +116,17 @@ class _CourseCardState extends State<CourseCard> {
                   ),
                 ),
               InkWell(
-                onTap: isUnlocked
+                onTap: true
                     ? () {
-                        // Handle course selection
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseDetailPage(
+                              course: widget.course,
+                              allCourses: widget.allCourses,
+                            ),
+                          ),
+                        );
                       }
                     : null,
                 borderRadius: BorderRadius.circular(24),
