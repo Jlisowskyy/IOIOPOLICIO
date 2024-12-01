@@ -24,14 +24,13 @@ class _PokerGamePageState extends State<PokerGamePage> {
               painter: PokerTablePainter(),
             ),
           ),
-          // Overlay for players and game details
+          // Overlay for players, game details, and actions
           Positioned.fill(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildPlayerSection(),
-                const Spacer(),
                 _buildPokerBoard(),
-                const Spacer(),
                 _buildActionSection(),
               ],
             ),
@@ -43,17 +42,19 @@ class _PokerGamePageState extends State<PokerGamePage> {
 
   Widget _buildPlayerSection() {
     return const Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           PlayerAvatar(
-              playerName: 'Player 1',
-              avatarPath: AppDataModel.player1ImagePath),
+            playerName: 'Player 1',
+            avatarPath: AppDataModel.player1ImagePath,
+          ),
           SizedBox(width: 32),
           PlayerAvatar(
-              playerName: 'Player 2',
-              avatarPath: AppDataModel.player2ImagePath),
+            playerName: 'Player 2',
+            avatarPath: AppDataModel.player2ImagePath,
+          ),
         ],
       ),
     );
@@ -100,7 +101,7 @@ class _PokerGamePageState extends State<PokerGamePage> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ActionButton(
             label: 'Fold',
