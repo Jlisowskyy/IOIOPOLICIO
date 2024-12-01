@@ -2,55 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/poker_theme.dart';
 
-// // Theme Configuration
-// final ThemeData sportsPokerTheme = ThemeData(
-//   brightness: Brightness.dark,
-//   primaryColor: Colors.red[900]!, // Deep red as the primary color
-//   colorScheme: ColorScheme(
-//     brightness: Brightness.dark,
-//     primary: Colors.red[900]!, // Matches the dominant red tones
-//     onPrimary: Colors.white, // Text on primary buttons
-//     secondary: Colors.amber[600]!, // Golden yellow for accents
-//     onSecondary: Colors.black, // Text on secondary elements
-//     surface: Color(0xFF1A1A1A), // Slightly lighter than black for card surfaces
-//     onSurface: Colors.white, // Text on surface
-//     error: Colors.redAccent, // Error colors
-//     onError: Colors.white, // Text for error messages
-//     background: Colors.black,
-//     onBackground: Colors.white,
-//   ),
-//   scaffoldBackgroundColor: Colors.black, // Matches the dark background
-//   textTheme: TextTheme(
-//     displayLarge: const TextStyle(
-//       color: Colors.white,
-//       fontSize: 32,
-//       fontWeight: FontWeight.bold,
-//     ),
-//     bodyLarge: TextStyle(
-//         color: Colors.grey[300], fontSize: 16, fontWeight: FontWeight.bold),
-//     bodyMedium: TextStyle(
-//         color: Colors.grey[400], fontSize: 14, fontWeight: FontWeight.bold),
-//   ),
-//   buttonTheme: ButtonThemeData(
-//     buttonColor: Colors.red[900], // Red for call-to-action buttons
-//     textTheme: ButtonTextTheme.primary,
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.circular(8),
-//     ),
-//   ),
-//   appBarTheme: AppBarTheme(
-//     backgroundColor: Colors.red[900],
-//     foregroundColor: Colors.white,
-//     elevation: 0,
-//     titleTextStyle: const TextStyle(
-//       color: Colors.white,
-//       fontSize: 20,
-//       fontWeight: FontWeight.bold,
-//     ),
-//   ),
-// );
-
-// Main App
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
 
@@ -59,102 +10,450 @@ class AdminPage extends StatelessWidget {
     return ProviderScope(
       child: MaterialApp(
         title: 'Poker Platform Admin',
-        theme: sportsPokerTheme, // Apply Sports Poker Theme
-        home: AdminDashboardScreen(),
+        theme: sportsPokerTheme,
+        home: const AdminDashboardScreen(),
       ),
     );
   }
 }
 
-// Dashboard Screen
 class AdminDashboardScreen extends ConsumerWidget {
   const AdminDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Admin Dashboard')),
-      drawer: AdminDrawerMenu(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildMetricCard(
-                  'Active Players', '1,234', Icons.people, context),
-              _buildMetricCard('Ongoing Games', '42', Icons.gamepad, context),
-              _buildMetricCard(
-                  'Total Users', '5,678', Icons.supervisor_account, context),
-              _buildRecentReportsSection(context),
-            ],
+      backgroundColor: Colors.black,
+      drawer: const AdminDrawerMenu(),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(context),
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: _buildContent(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 80,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.7),
+                  Colors.black.withOpacity(0),
+                ],
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Row(
+              children: [
+                Builder(
+                  builder: (context) => IconButton(
+                    icon: const Icon(Icons.menu, color: Colors.white, size: 28),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  ),
+                ),
+                const Text(
+                  "Admin Dashboard",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      height: 400,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.blue.withOpacity(0.8),
+            Colors.black,
+          ],
+        ),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(32, 100, 32, 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    _buildStatusBadge(
+                      icon: Icons.admin_panel_settings,
+                      text: "Admin Control Panel",
+                      color: Colors.blue,
+                    ),
+                    const Spacer(),
+                    _buildStatusBadge(
+                      icon: Icons.lock_open,
+                      text: "Full Access",
+                      color: Colors.green,
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                const Text(
+                  "Platform Overview",
+                  style: TextStyle(
+                    fontSize: 56,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: -1,
+                    height: 1.1,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    _buildInfoChip(Icons.people, "1,234 Active Players",
+                        Colors.blue.withOpacity(0.2)),
+                    const SizedBox(width: 12),
+                    _buildInfoChip(Icons.gamepad, "42 Ongoing Games",
+                        Colors.green.withOpacity(0.2)),
+                    const SizedBox(width: 12),
+                    _buildInfoChip(Icons.supervisor_account, "5,678 Total Users",
+                        Colors.purple.withOpacity(0.2)),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildMetricCard(
-      String title, String value, IconData icon, BuildContext context) {
-    return Card(
-      color: Theme.of(context).colorScheme.surface,
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        leading:
-            Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
-        title: Text(title,
+  Widget _buildStatusBadge({
+    required IconData icon,
+    required String text,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(width: 8),
+          Text(
+            text,
             style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge?.color,
-                fontWeight: FontWeight.bold)),
-        trailing: Text(
-          value,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).textTheme.bodyLarge?.color,
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget _buildRecentReportsSection(BuildContext context) {
-    return Card(
-      color: Theme.of(context).colorScheme.surface,
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8),
+  Widget _buildInfoChip(IconData icon, String label, Color bgColor) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 20, color: Colors.white),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
+          _buildSection(
+            "Recent Reports",
+            _buildReportsList(),
+          ),
+          const SizedBox(height: 40),
+          _buildSection(
+            "Quick Actions",
+            _buildQuickActions(context),
+          ),
+          const SizedBox(height: 40),
+          _buildSection(
+            "System Status",
+            _buildSystemStatus(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSection(String title, Widget content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 24),
+        content,
+      ],
+    );
+  }
+
+  Widget _buildReportsList() {
+    return Column(
+      children: [
+        _buildReportItem(
+          title: "Suspicious Activity Detected",
+          subtitle: "User: @player123",
+          time: "2 hours ago",
+          severity: "High",
+          color: Colors.red,
+        ),
+        const SizedBox(height: 16),
+        _buildReportItem(
+          title: "Game Violation",
+          subtitle: "Game ID: #5678",
+          time: "Today",
+          severity: "Medium",
+          color: Colors.orange,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildReportItem({
+    required String title,
+    required String subtitle,
+    required String time,
+    required String severity,
+    required Color color,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey[800]!),
+      ),
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: color.withOpacity(0.3)),
+            ),
             child: Text(
-              'Recent Reports',
+              severity,
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge?.color,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                color: color,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
             ),
           ),
-          ListTile(
-            title: Text('Suspicious Activity Detected',
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium?.color)),
-            subtitle: Text('User: @player123',
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium?.color)),
-            trailing:
-                Text('2 hours ago', style: TextStyle(color: Colors.grey[600])),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
           ),
-          ListTile(
-            title: Text('Game Violation',
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium?.color)),
-            subtitle: Text('Game ID: #5678',
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyMedium?.color)),
-            trailing: Text('Today', style: TextStyle(color: Colors.grey[600])),
+          Text(
+            time,
+            style: TextStyle(
+              color: Colors.grey[500],
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickActions(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        _buildActionChip("Manage Players", Icons.people, Colors.blue),
+        _buildActionChip("Game Controls", Icons.gamepad, Colors.green),
+        _buildActionChip("System Settings", Icons.settings, Colors.orange),
+        _buildActionChip("View Reports", Icons.report, Colors.red),
+      ],
+    );
+  }
+
+  Widget _buildActionChip(String label, IconData icon, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 20, color: color),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSystemStatus() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildStatusItem(
+          "Server Load",
+          "Normal",
+          0.3,
+          Colors.green,
+        ),
+        const SizedBox(height: 16),
+        _buildStatusItem(
+          "Memory Usage",
+          "Moderate",
+          0.6,
+          Colors.orange,
+        ),
+        const SizedBox(height: 16),
+        _buildStatusItem(
+          "Network Traffic",
+          "High",
+          0.8,
+          Colors.red,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatusItem(
+      String label, String status, double value, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey[800]!),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: color.withOpacity(0.3)),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: LinearProgressIndicator(
+              value: value,
+              backgroundColor: Colors.grey[800],
+              color: color,
+              minHeight: 10,
+            ),
           ),
         ],
       ),
@@ -162,7 +461,6 @@ class AdminDashboardScreen extends ConsumerWidget {
   }
 }
 
-// Admin Drawer Menu
 class AdminDrawerMenu extends StatelessWidget {
   const AdminDrawerMenu({super.key});
 
@@ -170,28 +468,38 @@ class AdminDrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Colors.grey[900],
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.blue.withOpacity(0.8),
+                    Colors.black,
+                  ],
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: Colors.white,
                     child: Icon(Icons.admin_panel_settings,
-                        color: Theme.of(context).primaryColor),
+                        color: Colors.blue),
                   ),
                   const SizedBox(height: 10),
-                  Text(
+                  const Text(
                     'Admin Control Panel',
-                    style: Theme.of(context)
-                        .appBarTheme
-                        .titleTextStyle
-                        ?.copyWith(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -200,21 +508,21 @@ class AdminDrawerMenu extends StatelessWidget {
               icon: Icons.dashboard,
               title: 'Dashboard',
               onTap: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => AdminDashboardScreen())),
+                  MaterialPageRoute(builder: (_) => const AdminDashboardScreen())),
               context: context,
             ),
             _buildDrawerItem(
               icon: Icons.people,
               title: 'Player Management',
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => PlayerManagementScreen())),
+                  MaterialPageRoute(builder: (_) => const PlayerManagementScreen())),
               context: context,
             ),
             _buildDrawerItem(
               icon: Icons.gamepad,
               title: 'Game Management',
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => GameManagementScreen())),
+                  MaterialPageRoute(builder: (_) => const GameManagementScreen())),
               context: context,
             ),
           ],
@@ -230,23 +538,121 @@ class AdminDrawerMenu extends StatelessWidget {
     required BuildContext context,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurface),
-      title: Text(title,
-          style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+      leading: Icon(icon, color: Colors.white70, size: 24),
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white70,
+          fontSize: 16,
+        ),
+      ),
       onTap: onTap,
+      hoverColor: Colors.blue.withOpacity(0.1),
     );
   }
 }
 
-// Placeholder Screens
 class PlayerManagementScreen extends StatelessWidget {
   const PlayerManagementScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Player Management')),
-      body: const Center(child: Text('Player Management Screen')),
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(context),
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: _buildContent(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 80,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.7),
+                  Colors.black.withOpacity(0),
+                ],
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                const Text(
+                  "Player Management",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      height: 400,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.purple.withOpacity(0.8),
+            Colors.black,
+          ],
+        ),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: const Padding(
+            padding: EdgeInsets.fromLTRB(32, 100, 32, 32),
+            child: Text(
+              "Player Management Screen\nComing Soon",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(32.0),
+      child: Center(
+        child: Text(
+          'Player Management features will be implemented here.',
+          style: TextStyle(color: Colors.white70),
+        ),
+      ),
     );
   }
 }
@@ -257,8 +663,101 @@ class GameManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Game Management')),
-      body: const Center(child: Text('Game Management Screen')),
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(context),
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: _buildContent(context),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 80,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.7),
+                  Colors.black.withOpacity(0),
+                ],
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                const Text(
+                  "Game Management",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      height: 400,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.green.withOpacity(0.8),
+            Colors.black,
+          ],
+        ),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: const Padding(
+            padding: EdgeInsets.fromLTRB(32, 100, 32, 32),
+            child: Text(
+              "Game Management Screen\nComing Soon",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(32.0),
+      child: Center(
+        child: Text(
+          'Game Management features will be implemented here.',
+          style: TextStyle(color: Colors.white70),
+        ),
+      ),
     );
   }
 }
