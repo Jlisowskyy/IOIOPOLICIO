@@ -1,166 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CourseModel {
-  final String id;
-  final String title;
-  final String description;
-  final String duration;
-  final String difficulty;
-  final String imageUrl;
-  final List<String> prerequisites;
-  final List<String> topics;
-  final int studentsEnrolled;
-  final double rating;
-  final String instructor;
-  final bool completed;
-
-  CourseModel({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.duration,
-    required this.difficulty,
-    required this.imageUrl,
-    required this.prerequisites,
-    required this.topics,
-    required this.studentsEnrolled,
-    required this.rating,
-    required this.instructor,
-    required this.completed,
-  });
-
-  bool isUnlocked(List<CourseModel> allCourses) {
-    if (prerequisites.isEmpty) return true;
-    return prerequisites.every((prereqId) =>
-        allCourses.firstWhere((course) => course.id == prereqId).completed);
-  }
-}
+import '../mocks/course_mock.dart';
+import '../models/course_model.dart';
 
 class CourseListPage extends StatelessWidget {
   CourseListPage({super.key});
-
-  final List<CourseModel> courses = [
-    CourseModel(
-      id: "poker101",
-      title: "Poker Fundamentals",
-      description:
-          "Start your poker journey with essential concepts, basic rules, and fundamental strategies that every player needs to master.",
-      duration: "2 hours",
-      difficulty: "Beginner",
-      imageUrl: "assets/poker101.jpg",
-      prerequisites: [],
-      topics: [
-        "Basic Rules",
-        "Hand Rankings",
-        "Position Play",
-        "Starting Hands"
-      ],
-      studentsEnrolled: 1542,
-      rating: 4.8,
-      instructor: "Daniel Jones",
-      completed: true, // Completed
-    ),
-    CourseModel(
-      id: "math101",
-      title: "Essential Poker Mathematics",
-      description:
-          "Master the critical mathematical concepts that form the foundation of profitable poker play.",
-      duration: "3 hours",
-      difficulty: "Beginner",
-      imageUrl: "assets/math101.jpg",
-      prerequisites: ["poker101"],
-      topics: [
-        "Pot Odds",
-        "Equity Calculation",
-        "Expected Value",
-        "Break-Even Math"
-      ],
-      studentsEnrolled: 1123,
-      rating: 4.7,
-      instructor: "Sarah Chen",
-      completed: true, // Completed
-    ),
-    CourseModel(
-      id: "tournament101",
-      title: "Tournament Strategy Basics",
-      description:
-          "Learn how to navigate poker tournaments with confidence and precision.",
-      duration: "4 hours",
-      difficulty: "Intermediate",
-      imageUrl: "assets/tournament101.jpg",
-      prerequisites: ["poker101", "math101"],
-      topics: [
-        "Tournament Stages",
-        "Stack Management",
-        "Bubble Play",
-        "Final Table Dynamics"
-      ],
-      studentsEnrolled: 892,
-      rating: 4.9,
-      instructor: "Mike Wilson",
-      completed: false, // Unlocked but not completed
-    ),
-    CourseModel(
-      id: "mental101",
-      title: "Mental Game Mastery",
-      description:
-          "Develop unshakeable mental strength and emotional control for peak performance.",
-      duration: "2.5 hours",
-      difficulty: "All Levels",
-      imageUrl: "assets/mental101.jpg",
-      prerequisites: [],
-      topics: [
-        "Tilt Control",
-        "Mindset Training",
-        "Performance Psychology",
-        "Decision Making"
-      ],
-      studentsEnrolled: 2341,
-      rating: 4.9,
-      instructor: "Dr. Emma Thompson",
-      completed: false, // No prerequisites, always unlocked
-    ),
-    CourseModel(
-      id: "cash201",
-      title: "Advanced Cash Game Strategy",
-      description:
-          "Take your cash game to the next level with sophisticated strategies and advanced concepts.",
-      duration: "5 hours",
-      difficulty: "Advanced",
-      imageUrl: "assets/cash201.jpg",
-      prerequisites: ["poker101", "math101"],
-      topics: [
-        "Range Construction",
-        "Exploitative Play",
-        "Game Selection",
-        "Bankroll Management"
-      ],
-      studentsEnrolled: 645,
-      rating: 4.6,
-      instructor: "Alex Rodriguez",
-      completed: false, // Unlocked (prerequisites completed)
-    ),
-    CourseModel(
-      id: "gto301",
-      title: "GTO Theory & Application",
-      description:
-          "Deep dive into Game Theory Optimal play and its practical applications.",
-      duration: "6 hours",
-      difficulty: "Expert",
-      imageUrl: "assets/gto301.jpg",
-      prerequisites: ["poker101", "math101", "cash201"],
-      topics: [
-        "GTO Fundamentals",
-        "Solver Usage",
-        "Mixed Strategies",
-        "Population Tendencies"
-      ],
-      studentsEnrolled: 421,
-      rating: 4.8,
-      instructor: "Prof. James Matthews",
-      completed: false, // Locked (not all prerequisites completed)
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -339,7 +183,7 @@ class _CourseCardState extends State<CourseCard> {
                         children: [
                           _buildInfoChip(
                             Icons.access_time,
-                            widget.course.duration,
+                            widget.course.formattedDuration,
                             Colors.blue.withOpacity(0.1),
                             textColor:
                                 isUnlocked ? Colors.white : Colors.grey[500],
@@ -365,36 +209,18 @@ class _CourseCardState extends State<CourseCard> {
     );
   }
 
-  Widget _buildDifficultyBadge(String difficulty) {
-    Color badgeColor;
-    switch (difficulty.toLowerCase()) {
-      case "beginner":
-        badgeColor = Colors.green;
-        break;
-      case "intermediate":
-        badgeColor = Colors.blue;
-        break;
-      case "advanced":
-        badgeColor = Colors.orange;
-        break;
-      case "expert":
-        badgeColor = Colors.red;
-        break;
-      default:
-        badgeColor = Colors.grey;
-    }
-
+  Widget _buildDifficultyBadge(CourseDifficulty difficulty) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: badgeColor.withOpacity(0.1),
+        color: difficulty.color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: badgeColor.withOpacity(0.3)),
+        border: Border.all(color: difficulty.color.withOpacity(0.3)),
       ),
       child: Text(
-        difficulty,
+        difficulty.displayName,
         style: TextStyle(
-          color: badgeColor,
+          color: difficulty.color,
           fontWeight: FontWeight.bold,
           fontSize: 12,
         ),
