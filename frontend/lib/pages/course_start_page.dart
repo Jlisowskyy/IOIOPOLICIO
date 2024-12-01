@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../mocks/question_mock.dart';
@@ -276,71 +277,169 @@ class _CourseStartPageState extends State<CourseStartPage>
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.green.withOpacity(0.3), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.green.withOpacity(0.1),
+            blurRadius: 20,
+            spreadRadius: 5,
+          ),
+        ],
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.emoji_events,
-            color: Colors.amber,
-            size: 64,
+          // Trophy animation
+          Lottie.network(
+            'https://assets9.lottiefiles.com/packages/lf20_touohxv0.json',
+            height: 200,
+            repeat: true,
           ),
           const SizedBox(height: 24),
-          const Text(
-            "Congratulations!",
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            "You've completed the course and passed the quiz!",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey[400],
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: Colors.amber.withOpacity(0.3),
-              ),
-            ),
-            child: Column(
-              children: [
-                const Text(
-                  "Your Reward",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.amber,
+          // Animated congratulations text
+          TweenAnimationBuilder(
+            duration: const Duration(seconds: 1),
+            tween: Tween<double>(begin: 0, end: 1),
+            builder: (context, double value, child) {
+              return Transform.scale(
+                scale: value,
+                child: ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Colors.green, Colors.lime],
+                  ).createShader(bounds),
+                  child: const Text(
+                    "Congratulations!",
+                    style: TextStyle(
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: -0.5,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                const Text(
-                  "🎮 Exclusive League of Legends Champion Skin 🎮",
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+          // Fade-in text
+          TweenAnimationBuilder(
+            duration: const Duration(milliseconds: 800),
+            tween: Tween<double>(begin: 0, end: 1),
+            builder: (context, double value, child) {
+              return Opacity(
+                opacity: value,
+                child: Text(
+                  "You've completed the course and passed the quiz!",
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.grey[300],
+                    letterSpacing: 0.5,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  "Redeem code: REWARD-2024",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[400],
+              );
+            },
+          ),
+          const SizedBox(height: 32),
+          // Animated reward card
+          TweenAnimationBuilder(
+            tween: Tween<double>(begin: 0.8, end: 1.0),
+            duration: const Duration(seconds: 1),
+            curve: Curves.elasticOut,
+            builder: (context, double value, child) {
+              return Transform.scale(
+                scale: value,
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.amber.withOpacity(0.3),
+                      width: 2,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.amber.withOpacity(0.1),
+                        blurRadius: 20,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Your Reward",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Column(
+                          children: [
+                            Text(
+                              "🎮 Exclusive League of Legends Champion Skin 🎮",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Mythic Rarity",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.amber,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Animated code reveal
+                      TweenAnimationBuilder(
+                        tween: Tween<double>(begin: 0, end: 1),
+                        duration: const Duration(milliseconds: 1200),
+                        builder: (context, double value, child) {
+                          return Opacity(
+                            opacity: value,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Text(
+                                "REWARD-CODE-2024",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),
