@@ -18,13 +18,13 @@ class Sidebar extends StatelessWidget {
             child: Image.asset(AppDataModel.logoPath, height: 50),
           ),
           // Navigation Buttons
-          SidebarButton(title: "Play", icon: Icons.sports),
-          SidebarButton(title: "Puzzles", icon: Icons.extension),
-          SidebarButton(title: "Learn", icon: Icons.school),
-          SidebarButton(title: "Watch", icon: Icons.live_tv),
-          SidebarButton(title: "News", icon: Icons.article),
-          SidebarButton(title: "Social", icon: Icons.people),
-          SidebarButton(title: "More", icon: Icons.more_horiz),
+          const SidebarButton(title: "Play", icon: Icons.sports),
+          const SidebarButton(title: "Puzzles", icon: Icons.extension),
+          const SidebarButton(title: "Learn", icon: Icons.school),
+          const SidebarButton(title: "Watch", icon: Icons.live_tv),
+          const SidebarButton(title: "News", icon: Icons.article),
+          const SidebarButton(title: "Social", icon: Icons.people),
+          const SidebarButton(title: "More", icon: Icons.more_horiz),
           const Spacer(),
           // Bottom Buttons
           Padding(

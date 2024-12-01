@@ -16,8 +16,7 @@ class AppDataModel {
   static const String adText = "SPORTS POKER WORLD CHAMPIONSHIP";
   static const String adSubtext = "Las Vegas 2024 • October 15-20";
 
-  static const String logoPath = "assets/images/sportspoker_logo.png";
-  static const String adBannerPath = "assets/images/ad_banner.jpg";
-  static const String pokerBoardPath = "assets/images/poker_board.png";
-  static const String profilePath = "assets/images/profile.jpg";
+  static const String logoPath = "assets/images/sportspoker_logo.jpg";
+  static const String pokerBoardPath = "assets/images/poker_board.webp";
+  static const String profilePath = "assets/images/lukasz_kryczka.jpg";
 }
