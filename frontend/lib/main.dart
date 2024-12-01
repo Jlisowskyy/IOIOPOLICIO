@@ -18,11 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SportsPoker.com',
       theme: sportsPokerTheme,
-<<<<<<< HEAD
       home: PokerGamePage(),
-=======
-      home: const UserProfilePage(),
->>>>>>> c73afcf (user profile colors update)
     );
   }
 }
