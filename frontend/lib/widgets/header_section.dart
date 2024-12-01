@@ -12,13 +12,13 @@ class HeaderSection extends StatelessWidget {
         const Text(
           AppDataModel.playHeader,
           style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
         const Text(
           AppDataModel.playSubtext,
-          style: TextStyle(color: Colors.grey, fontSize: 16),
+          style: TextStyle(color: Colors.grey, fontSize: 24),
         ),
         const SizedBox(height: 20),
         Row(
@@ -27,16 +27,30 @@ class HeaderSection extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.play_arrow),
-              label: const Text(AppDataModel.playOnline),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              label: const Text(
+                AppDataModel.playOnline,
+                // style: TextStyle(color: Colors.white)
+              ),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                textStyle: const TextStyle(fontSize: 18),
+                // backgroundColor: Colors.grey[800],
+              ),
             ),
             const SizedBox(width: 10),
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.smart_toy),
-              label: const Text(AppDataModel.playBots),
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: Colors.grey[800]),
+              label: const Text(
+                AppDataModel.playBots,
+                // style: TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                textStyle: const TextStyle(fontSize: 18),
+              ),
             ),
           ],
         )

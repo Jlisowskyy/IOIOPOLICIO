@@ -7,18 +7,29 @@ class SportsPokerMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Row(
+    return Scaffold(
+      body: Stack(
         children: [
-          Sidebar(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  HeaderSection(),
-                ],
+          Image.asset(
+            "assets/images/bg.jpg",
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.center,
+          ),
+          const Row(
+            children: [
+              Sidebar(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      HeaderSection(),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),

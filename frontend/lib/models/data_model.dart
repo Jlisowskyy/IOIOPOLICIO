@@ -19,4 +19,6 @@ class AppDataModel {
   static const String logoPath = "assets/images/sportspoker_logo.jpg";
   static const String pokerBoardPath = "assets/images/poker_board.webp";
   static const String profilePath = "assets/images/lukasz_kryczka.jpg";
+  static const String bgPath = "assets/images/bg.jpg";
+  static const String title = "Sports Poker";
 }

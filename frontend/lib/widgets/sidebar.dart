@@ -7,44 +7,55 @@ class Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 220,
       color: Colors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Logo
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Image.asset(AppDataModel.logoPath, height: 50),
+          // Logo Title
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: const Text(
+              AppDataModel.title,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
+
           // Navigation Buttons
-          const SidebarButton(title: "Play", icon: Icons.sports),
-          const SidebarButton(title: "Puzzles", icon: Icons.extension),
-          const SidebarButton(title: "Learn", icon: Icons.school),
-          const SidebarButton(title: "Watch", icon: Icons.live_tv),
-          const SidebarButton(title: "News", icon: Icons.article),
-          const SidebarButton(title: "Social", icon: Icons.people),
-          const SidebarButton(title: "More", icon: Icons.more_horiz),
+          SidebarButton(title: "Play", icon: Icons.sports, onTap: () {}),
+          SidebarButton(title: "Puzzles", icon: Icons.extension, onTap: () {}),
+          SidebarButton(title: "Learn", icon: Icons.school, onTap: () {}),
+          SidebarButton(title: "Profile", icon: Icons.people, onTap: () {}),
+          SidebarButton(title: "More", icon: Icons.more_horiz, onTap: () {}),
           const Spacer(),
           // Bottom Buttons
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
+            child: Row(
               children: [
                 ElevatedButton(
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.red,
+                  // ),
+                  child: const Text(
+                    "Sign Up",
                   ),
-                  child: const Text("Sign Up"),
                 ),
-                const SizedBox(height: 10),
+                const Expanded(child: SizedBox(width: 16)),
                 ElevatedButton(
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[800],
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.grey[800],
+                  // ),
+                  child: const Text(
+                    "Log In",
+                    // style: TextStyle(color: Colors.white)
                   ),
-                  child: const Text("Log In"),
                 ),
               ],
             ),
@@ -55,18 +66,36 @@ class Sidebar extends StatelessWidget {
   }
 }
 
-class SidebarButton extends StatelessWidget {
+class SidebarButton extends StatefulWidget {
   final String title;
   final IconData icon;
+  final Function() onTap;
 
-  const SidebarButton({super.key, required this.title, required this.icon});
+  const SidebarButton(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.onTap});
+
+  @override
+  _SidebarButtonState createState() => _SidebarButtonState();
+}
+
+class _SidebarButtonState extends State<SidebarButton> {
+  bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.white),
-      title: Text(title, style: const TextStyle(color: Colors.white)),
-      onTap: () {},
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovering = true),
+      onExit: (_) => setState(() => _isHovering = false),
+      child: ListTile(
+        leading:
+            Icon(widget.icon, color: _isHovering ? Colors.red : Colors.white),
+        title: Text(widget.title,
+            style: TextStyle(color: _isHovering ? Colors.red : Colors.white)),
+        onTap: widget.onTap,
+      ),
     );
   }
 }
