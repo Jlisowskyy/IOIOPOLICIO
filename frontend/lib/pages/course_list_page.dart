@@ -12,6 +12,7 @@ class CourseModel {
   final int studentsEnrolled;
   final double rating;
   final String instructor;
+  final bool completed;
 
   CourseModel({
     required this.id,
@@ -25,7 +26,14 @@ class CourseModel {
     required this.studentsEnrolled,
     required this.rating,
     required this.instructor,
+    required this.completed,
   });
+
+  bool isUnlocked(List<CourseModel> allCourses) {
+    if (prerequisites.isEmpty) return true;
+    return prerequisites.every((prereqId) =>
+        allCourses.firstWhere((course) => course.id == prereqId).completed);
+  }
 }
 
 class CourseListPage extends StatelessWidget {
@@ -50,6 +58,7 @@ class CourseListPage extends StatelessWidget {
       studentsEnrolled: 1542,
       rating: 4.8,
       instructor: "Daniel Jones",
+      completed: true, // Completed
     ),
     CourseModel(
       id: "math101",
@@ -69,6 +78,7 @@ class CourseListPage extends StatelessWidget {
       studentsEnrolled: 1123,
       rating: 4.7,
       instructor: "Sarah Chen",
+      completed: true, // Completed
     ),
     CourseModel(
       id: "tournament101",
@@ -88,6 +98,7 @@ class CourseListPage extends StatelessWidget {
       studentsEnrolled: 892,
       rating: 4.9,
       instructor: "Mike Wilson",
+      completed: false, // Unlocked but not completed
     ),
     CourseModel(
       id: "mental101",
@@ -107,6 +118,7 @@ class CourseListPage extends StatelessWidget {
       studentsEnrolled: 2341,
       rating: 4.9,
       instructor: "Dr. Emma Thompson",
+      completed: false, // No prerequisites, always unlocked
     ),
     CourseModel(
       id: "cash201",
@@ -126,6 +138,7 @@ class CourseListPage extends StatelessWidget {
       studentsEnrolled: 645,
       rating: 4.6,
       instructor: "Alex Rodriguez",
+      completed: false, // Unlocked (prerequisites completed)
     ),
     CourseModel(
       id: "gto301",
@@ -145,6 +158,7 @@ class CourseListPage extends StatelessWidget {
       studentsEnrolled: 421,
       rating: 4.8,
       instructor: "Prof. James Matthews",
+      completed: false, // Locked (not all prerequisites completed)
     ),
   ];
 
@@ -152,16 +166,7 @@ class CourseListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              const Color(0xFF1A237E),
-              const Color(0xFF0D47A1),
-            ],
-          ),
-        ),
+        color: Colors.black,
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
           child: Column(
@@ -181,7 +186,7 @@ class CourseListPage extends StatelessWidget {
                 "Expert-curated courses to elevate your poker game",
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.blue[100],
+                  color: Colors.grey[400],
                   letterSpacing: 0.5,
                 ),
               ),
@@ -228,6 +233,8 @@ class _CourseCardState extends State<CourseCard> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isUnlocked = widget.course.isUnlocked(widget.allCourses);
+
     return MouseRegion(
       onEnter: (_) => setState(() => isHovered = true),
       onExit: (_) => setState(() => isHovered = false),
@@ -238,77 +245,120 @@ class _CourseCardState extends State<CourseCard> {
             : Matrix4.identity(),
         child: Card(
           elevation: isHovered ? 16 : 4,
+          color: widget.course.completed
+              ? Colors.grey[900]
+              : (isUnlocked ? Colors.grey[850] : Colors.grey[900]),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
+            side: BorderSide(
+              color: widget.course.completed
+                  ? Colors.green.withOpacity(0.5)
+                  : (isUnlocked
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.red.withOpacity(0.3)),
+              width: 1,
+            ),
           ),
-          child: InkWell(
-            onTap: () {
-              // Handle course selection
-            },
-            borderRadius: BorderRadius.circular(24),
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+          child: Stack(
+            children: [
+              if (!isUnlocked)
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                ),
+              InkWell(
+                onTap: isUnlocked
+                    ? () {
+                        // Handle course selection
+                      }
+                    : null,
+                borderRadius: BorderRadius.circular(24),
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildDifficultyBadge(widget.course.difficulty),
-                      const Spacer(),
-                      Icon(Icons.star, color: Colors.amber, size: 20),
-                      const SizedBox(width: 4),
+                      Row(
+                        children: [
+                          _buildDifficultyBadge(widget.course.difficulty),
+                          const Spacer(),
+                          if (!isUnlocked)
+                            const Icon(Icons.lock, color: Colors.red, size: 20)
+                          else if (widget.course.completed)
+                            const Icon(Icons.check_circle,
+                                color: Colors.green, size: 20)
+                          else
+                            Row(
+                              children: [
+                                Icon(Icons.star, color: Colors.amber, size: 20),
+                                const SizedBox(width: 4),
+                                Text(
+                                  widget.course.rating.toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
                       Text(
-                        widget.course.rating.toString(),
-                        style: const TextStyle(
+                        widget.course.title,
+                        style: TextStyle(
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
+                          color: isUnlocked ? Colors.white : Colors.grey[500],
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    widget.course.title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    widget.course.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                      height: 1.5,
-                    ),
-                  ),
-                  const Spacer(),
-                  if (widget.course.prerequisites.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    _buildPrerequisites(),
-                  ],
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      _buildInfoChip(
-                        Icons.access_time,
-                        widget.course.duration,
-                        Colors.blue[50]!,
+                      const SizedBox(height: 8),
+                      Text(
+                        widget.course.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color:
+                              isUnlocked ? Colors.grey[400] : Colors.grey[600],
+                          height: 1.5,
+                        ),
                       ),
-                      const SizedBox(width: 8),
-                      _buildInfoChip(
-                        Icons.people,
-                        "${widget.course.studentsEnrolled}",
-                        Colors.green[50]!,
+                      const Spacer(),
+                      if (widget.course.prerequisites.isNotEmpty) ...[
+                        const SizedBox(height: 16),
+                        _buildPrerequisites(isUnlocked),
+                      ],
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          _buildInfoChip(
+                            Icons.access_time,
+                            widget.course.duration,
+                            Colors.blue.withOpacity(0.1),
+                            textColor:
+                                isUnlocked ? Colors.white : Colors.grey[500],
+                          ),
+                          const SizedBox(width: 8),
+                          _buildInfoChip(
+                            Icons.people,
+                            "${widget.course.studentsEnrolled}",
+                            Colors.green.withOpacity(0.1),
+                            textColor:
+                                isUnlocked ? Colors.white : Colors.grey[500],
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -339,7 +389,7 @@ class _CourseCardState extends State<CourseCard> {
       decoration: BoxDecoration(
         color: badgeColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: badgeColor.withOpacity(0.5)),
+        border: Border.all(color: badgeColor.withOpacity(0.3)),
       ),
       child: Text(
         difficulty,
@@ -352,7 +402,7 @@ class _CourseCardState extends State<CourseCard> {
     );
   }
 
-  Widget _buildPrerequisites() {
+  Widget _buildPrerequisites(bool isUnlocked) {
     List<String> prerequisiteTitles =
         widget.course.prerequisites.map((prereqId) {
       return widget.allCourses
@@ -367,7 +417,7 @@ class _CourseCardState extends State<CourseCard> {
           "Prerequisites:",
           style: TextStyle(
             fontSize: 12,
-            color: Colors.grey[600],
+            color: isUnlocked ? Colors.grey[400] : Colors.grey[600],
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -376,7 +426,7 @@ class _CourseCardState extends State<CourseCard> {
           prerequisiteTitles.join(", "),
           style: TextStyle(
             fontSize: 12,
-            color: Colors.grey[600],
+            color: isUnlocked ? Colors.grey[400] : Colors.grey[600],
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -385,7 +435,8 @@ class _CourseCardState extends State<CourseCard> {
     );
   }
 
-  Widget _buildInfoChip(IconData icon, String label, Color backgroundColor) {
+  Widget _buildInfoChip(IconData icon, String label, Color backgroundColor,
+      {Color? textColor}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
@@ -395,11 +446,14 @@ class _CourseCardState extends State<CourseCard> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14),
+          Icon(icon, size: 14, color: textColor),
           const SizedBox(width: 4),
           Text(
             label,
-            style: const TextStyle(fontSize: 12),
+            style: TextStyle(
+              fontSize: 12,
+              color: textColor,
+            ),
           ),
         ],
       ),
