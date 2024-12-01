@@ -35,7 +35,6 @@ class Sidebar extends StatelessWidget {
               onTap: () {
                 QueueManager.navigateToPokerGame(context);
               }),
-          SidebarButton(title: "Puzzles", icon: Icons.extension, onTap: () {}),
           SidebarButton(title: "Learn", icon: Icons.school, onTap: () {}),
           SidebarButton(
               title: "Profile",

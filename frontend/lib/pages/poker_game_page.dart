@@ -42,11 +42,11 @@ class _PokerGamePageState extends State<PokerGamePage> {
   }
 
   Widget _buildPlayerSection() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           PlayerAvatar(
               playerName: 'Player 1',
               avatarPath: AppDataModel.player1ImagePath),
@@ -64,10 +64,6 @@ class _PokerGamePageState extends State<PokerGamePage> {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.8),
-        // borderRadius: BorderRadius.circular(16),
-      ),
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
