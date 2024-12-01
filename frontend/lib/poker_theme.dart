@@ -9,7 +9,8 @@ final ThemeData sportsPokerTheme = ThemeData(
     onPrimary: Colors.white, // Text on primary buttons
     secondary: Colors.amber[600]!, // Golden yellow for accents
     onSecondary: Colors.black, // Text on secondary elements
-    surface: Color(0xFF1A1A1A), // Slightly lighter than black for card surfaces
+    surface: const Color(
+        0xFF1A1A1A), // Slightly lighter than black for card surfaces
     onSurface: Colors.white, // Text on surface
     error: Colors.redAccent, // Error colors
     onError: Colors.white, // Text for error messages
@@ -33,11 +34,11 @@ final ThemeData sportsPokerTheme = ThemeData(
       borderRadius: BorderRadius.circular(8),
     ),
   ),
-  appBarTheme: AppBarTheme(
-    backgroundColor: Colors.red[900],
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Colors.black,
     foregroundColor: Colors.white,
     elevation: 0,
-    titleTextStyle: const TextStyle(
+    titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20,
       fontWeight: FontWeight.bold,

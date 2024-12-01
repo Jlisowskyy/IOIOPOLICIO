@@ -48,9 +48,11 @@ class _PokerGamePageState extends State<PokerGamePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const [
           PlayerAvatar(
-              playerName: 'Player 1', avatarPath: AppDataModel.player1),
+              playerName: 'Player 1',
+              avatarPath: AppDataModel.player1ImagePath),
           PlayerAvatar(
-              playerName: 'Player 2', avatarPath: AppDataModel.player2),
+              playerName: 'Player 2',
+              avatarPath: AppDataModel.player2ImagePath),
         ],
       ),
     );

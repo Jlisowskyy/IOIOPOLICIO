@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/data_model.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -8,10 +9,10 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  String _profileImagePath = 'assets/default_profile.png';
-
-  final TextEditingController _usernameController = TextEditingController(text: 'ExampleUser');
-  final TextEditingController _emailController = TextEditingController(text: 'user@example.com');
+  final TextEditingController _usernameController =
+      TextEditingController(text: 'ExampleUser');
+  final TextEditingController _emailController =
+      TextEditingController(text: 'user@example.com');
 
   final Map<String, dynamic> userStats = {
     'totalPoints': 250,
@@ -20,8 +21,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
     'pointsToNextRank': 50,
     'totalRequiredPoints': 300,
     'badges': [
-      {'name': 'First Game', 'icon': Icons.star, 'description': 'Completed first poker game'},
-      {'name': 'Poker Strategy', 'icon': Icons.extension, 'description': 'Mastered basic poker strategies'}
+      {
+        'name': 'First Game',
+        'icon': Icons.star,
+        'description': 'Completed first poker game'
+      },
+      {
+        'name': 'Poker Strategy',
+        'icon': Icons.extension,
+        'description': 'Mastered basic poker strategies'
+      }
     ],
     'courses': [
       {'title': 'Introduction to Poker', 'dateCompleted': '2024-01-15'},
@@ -35,7 +44,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('User Profile', style: TextStyle(fontWeight: FontWeight.w600)),
+        title: const Text('User Profile',
+            style: TextStyle(fontWeight: FontWeight.w600)),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
@@ -51,7 +61,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
           children: [
             // Profile Section (Profile Picture + Username + Email)
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               elevation: 5,
               child: Container(
                 decoration: BoxDecoration(
@@ -70,7 +81,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       children: [
                         CircleAvatar(
                           radius: 60,
-                          backgroundImage: AssetImage(_profileImagePath),
+                          backgroundImage:
+                              const AssetImage(AppDataModel.profilePath),
                           backgroundColor: Colors.grey[300],
                         ),
                       ],
@@ -78,11 +90,18 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     const SizedBox(height: 10),
                     Text(
                       _usernameController.text,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       _emailController.text,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white70),
                     ),
                   ],
                 ),
@@ -92,7 +111,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
             // User Statistics Section
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -101,7 +121,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.leaderboard, color: Theme.of(context).colorScheme.primary),
+                        Icon(Icons.leaderboard,
+                            color: Theme.of(context).colorScheme.primary),
                         const SizedBox(width: 8),
                         Text(
                           'User Statistics',
@@ -111,7 +132,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     ),
                     const SizedBox(height: 16),
                     LinearProgressIndicator(
-                      value: userStats['totalPoints'] / userStats['totalRequiredPoints'],
+                      value: userStats['totalPoints'] /
+                          userStats['totalRequiredPoints'],
                       color: Colors.greenAccent,
                       backgroundColor: Colors.grey[300],
                       minHeight: 8,
@@ -129,7 +151,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
             // Badges Section
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -138,7 +161,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.badge, color: Theme.of(context).colorScheme.primary),
+                        Icon(Icons.badge,
+                            color: Theme.of(context).colorScheme.primary),
                         const SizedBox(width: 8),
                         Text(
                           'Badges',
@@ -153,8 +177,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         return Tooltip(
                           message: badge['description'],
                           child: Chip(
-                            avatar: Icon(badge['icon'], size: 16, color: Colors.white),
-                            label: Text(badge['name'], style: const TextStyle(color: Colors.white)),
+                            avatar: Icon(badge['icon'],
+                                size: 16, color: Colors.white),
+                            label: Text(badge['name'],
+                                style: const TextStyle(color: Colors.white)),
                             backgroundColor: Colors.teal,
                           ),
                         );
@@ -168,7 +194,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
             // Completed Courses Section
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               elevation: 5,
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -177,7 +204,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.school, color: Theme.of(context).colorScheme.primary),
+                        Icon(Icons.school,
+                            color: Theme.of(context).colorScheme.primary),
                         const SizedBox(width: 8),
                         Text(
                           'Completed Courses',
@@ -201,7 +229,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(course['title'], style: Theme.of(context).textTheme.bodyMedium),
+                                    Text(course['title'],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
                                     Text(
                                       'Completed on: ${course['dateCompleted']}',
                                       style: TextStyle(color: Colors.grey[600]),

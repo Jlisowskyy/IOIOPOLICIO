@@ -16,11 +16,12 @@ class AppDataModel {
   static const String adText = "SPORTS POKER WORLD CHAMPIONSHIP";
   static const String adSubtext = "Las Vegas 2024 • October 15-20";
 
-  static const String logoPath = "assets/images/sportspoker_logo.jpg";
-  static const String pokerBoardPath = "assets/images/poker_board.webp";
-  static const String profilePath = "assets/images/lukasz_kryczka.jpg";
-  static const String player1 = "assets/images/lukasz_kryczka.jpg";
-  static const String player2 = "assets/images/lukasz_kryczka.jpg";
+  static const String profilePath =
+      "images/profile_pictures/lukasz_kryczka.jpg";
+  static const String player1ImagePath =
+      "images/profile_pictures/james_wilson.jpg";
+  static const String player2ImagePath =
+      "images/profile_pictures/olivia_martinez.jpg";
   static const String bgPath = "assets/images/bg.jpg";
   static const String title = "Sports Poker";
 }
