@@ -22,6 +22,6 @@ class AppDataModel {
       "images/profile_pictures/james_wilson.jpg";
   static const String player2ImagePath =
       "images/profile_pictures/olivia_martinez.jpg";
-  static const String bgPath = "assets/images/bg.jpg";
+  static const String bgPath = "assets/images/bg.gif";
   static const String title = "Sports Poker";
 }

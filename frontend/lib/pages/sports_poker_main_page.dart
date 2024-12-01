@@ -23,7 +23,7 @@ class SportsPokerMainPage extends StatelessWidget {
             ).createShader(bounds),
             blendMode: BlendMode.darken,
             child: Image.asset(
-              "assets/images/bg.jpg",
+              "assets/images/bg.gif",
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
