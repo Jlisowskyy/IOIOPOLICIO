@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/queue_manager.dart';
 import '../models/data_model.dart';
 import 'package:frontend/pages/user_profile_page.dart';
 import 'package:frontend/pages/admin_page.dart';
@@ -28,7 +29,12 @@ class Sidebar extends StatelessWidget {
           ),
 
           // Navigation Buttons
-          SidebarButton(title: "Play", icon: Icons.sports, onTap: () {}),
+          SidebarButton(
+              title: "Play",
+              icon: Icons.sports,
+              onTap: () {
+                QueueManager.navigateToPokerGame(context);
+              }),
           SidebarButton(title: "Puzzles", icon: Icons.extension, onTap: () {}),
           SidebarButton(title: "Learn", icon: Icons.school, onTap: () {}),
           SidebarButton(

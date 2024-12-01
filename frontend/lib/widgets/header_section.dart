@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/queue_manager.dart';
 import '../models/data_model.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -25,7 +26,9 @@ class HeaderSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                QueueManager.navigateToPokerGame(context);
+              },
               icon: const Icon(Icons.play_arrow),
               label: const Text(
                 AppDataModel.playOnline,
@@ -40,7 +43,9 @@ class HeaderSection extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                QueueManager.navigateToPokerGame(context);
+              },
               icon: const Icon(Icons.smart_toy),
               label: const Text(
                 AppDataModel.playBots,
