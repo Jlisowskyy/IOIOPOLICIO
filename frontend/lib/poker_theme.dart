@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 
 final ThemeData sportsPokerTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.red[900]!, // Deep red as the primary color
+  primaryColor: Colors.red[900]!,
   colorScheme: ColorScheme(
     brightness: Brightness.dark,
-    primary: Colors.red[900]!, // Matches the dominant red tones
-    onPrimary: Colors.white, // Text on primary buttons
-    secondary: Colors.amber[600]!, // Golden yellow for accents
-    onSecondary: Colors.black, // Text on secondary elements
-    surface: const Color(
-        0xFF1A1A1A), // Slightly lighter than black for card surfaces
-    onSurface: Colors.white, // Text on surface
-    error: Colors.redAccent, // Error colors
-    onError: Colors.white, // Text for error messages
+    primary: Colors.red[900]!,
+    onPrimary: Colors.white,
+    secondary: Colors.amber[600]!,
+    onSecondary: Colors.black,
+    surface: const Color(0xFF1A1A1A),
+    onSurface: Colors.white,
+    error: Colors.redAccent,
+    onError: Colors.white,
   ),
-  scaffoldBackgroundColor: Colors.black, // Matches the dark background
+  scaffoldBackgroundColor: Colors.black,
   textTheme: TextTheme(
     displayLarge: const TextStyle(
       color: Colors.white,
@@ -28,7 +27,7 @@ final ThemeData sportsPokerTheme = ThemeData(
         color: Colors.grey[400], fontSize: 14, fontWeight: FontWeight.bold),
   ),
   buttonTheme: ButtonThemeData(
-    buttonColor: Colors.red[900], // Red for call-to-action buttons
+    buttonColor: Colors.red[900],
     textTheme: ButtonTextTheme.primary,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8),

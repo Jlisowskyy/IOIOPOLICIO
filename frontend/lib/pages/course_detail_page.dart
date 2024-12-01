@@ -42,7 +42,6 @@ class CourseDetailPage extends StatelessWidget {
               ],
             ),
           ),
-          // Move navigation controls to a separate container to ensure proper z-index
           Container(
             width: double.infinity,
             height: 80,
@@ -89,7 +88,7 @@ class CourseDetailPage extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context, bool isUnlocked) {
     return Container(
-      height: 400, // Increased height
+      height: 400,
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -105,8 +104,7 @@ class CourseDetailPage extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1200),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-                32, 100, 32, 32), // Increased top padding
+            padding: const EdgeInsets.fromLTRB(32, 100, 32, 32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +131,7 @@ class CourseDetailPage extends StatelessWidget {
                 Text(
                   course.title,
                   style: const TextStyle(
-                    fontSize: 56, // Increased font size
+                    fontSize: 56,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     letterSpacing: -1,
@@ -251,8 +249,8 @@ class CourseDetailPage extends StatelessWidget {
           const SizedBox(height: 60),
           Center(
             child: SizedBox(
-              width: 400, // Increased width
-              height: 60, // Increased height
+              width: 400,
+              height: 60,
               child: ElevatedButton(
                 onPressed: isUnlocked
                     ? () {
@@ -271,7 +269,7 @@ class CourseDetailPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
                       isUnlocked ? course.difficulty.color : Colors.grey[800],
-                  foregroundColor: Colors.white, // Explicitly set text color
+                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -299,7 +297,7 @@ class CourseDetailPage extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            fontSize: 32, // Increased font size
+            fontSize: 32,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

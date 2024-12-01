@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class PokerTablePainter extends CustomPainter {
   @override
@@ -17,7 +18,6 @@ class PokerTablePainter extends CustomPainter {
       ..color = Colors.red
       ..style = PaintingStyle.fill;
 
-    // Draw poker table
     final tableRect = Rect.fromLTWH(
       size.width * 0.1,
       size.height * 0.2,
@@ -33,17 +33,15 @@ class PokerTablePainter extends CustomPainter {
       tableBorderPaint,
     );
 
-    // Draw center circle for pot
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 2),
       50,
       chipPaint,
     );
 
-    // Draw chips around the pot
     const chipRadius = 15.0;
     for (int i = 0; i < 8; i++) {
-      final angle = (i * 45) * pi / 180; // Convert degrees to radians
+      final angle = (i * 45) * pi / 180;
       final x = size.width / 2 + 80 * cos(angle);
       final y = size.height / 2 + 80 * sin(angle);
       canvas.drawCircle(Offset(x, y), chipRadius, chipPaint);

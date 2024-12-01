@@ -289,14 +289,12 @@ class _CourseStartPageState extends State<CourseStartPage>
       ),
       child: Column(
         children: [
-          // Trophy animation
           Lottie.network(
             'https://assets9.lottiefiles.com/packages/lf20_touohxv0.json',
             height: 200,
             repeat: true,
           ),
           const SizedBox(height: 24),
-          // Animated congratulations text
           TweenAnimationBuilder(
             duration: const Duration(seconds: 1),
             tween: Tween<double>(begin: 0, end: 1),
@@ -321,7 +319,6 @@ class _CourseStartPageState extends State<CourseStartPage>
             },
           ),
           const SizedBox(height: 16),
-          // Fade-in text
           TweenAnimationBuilder(
             duration: const Duration(milliseconds: 800),
             tween: Tween<double>(begin: 0, end: 1),

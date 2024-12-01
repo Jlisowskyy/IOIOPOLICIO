@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/poker_game_page.dart';
 
 class QueueManager {
   static void navigateToPokerGame(BuildContext context) async {
-    // Show loading indicator with animation
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -50,11 +50,9 @@ class QueueManager {
       },
     );
 
-    // Simulate delay
     await Future.delayed(const Duration(seconds: 2));
     Navigator.of(context).pop();
 
-    // Show the accept popup with custom design
     bool accepted = await showDialog<bool>(
           context: context,
           barrierDismissible: false,
@@ -94,7 +92,6 @@ class QueueManager {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header with gradient
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -148,8 +145,6 @@ class QueueManager {
                 ],
               ),
             ),
-
-            // Content
             Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
@@ -174,15 +169,11 @@ class QueueManager {
                 ],
               ),
             ),
-
-            // Timer indicator
             const LinearProgressIndicator(
               value: 1.0,
               backgroundColor: Colors.grey,
               color: Colors.red,
             ),
-
-            // Buttons
             Padding(
               padding: const EdgeInsets.all(24),
               child: Row(

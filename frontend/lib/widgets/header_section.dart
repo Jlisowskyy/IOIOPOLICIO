@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/queue_manager.dart';
+
 import '../models/data_model.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -32,13 +33,11 @@ class HeaderSection extends StatelessWidget {
               icon: const Icon(Icons.play_arrow),
               label: const Text(
                 AppDataModel.playOnline,
-                // style: TextStyle(color: Colors.white)
               ),
               style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 textStyle: const TextStyle(fontSize: 18),
-                // backgroundColor: Colors.grey[800],
               ),
             ),
             const SizedBox(width: 10),
@@ -49,7 +48,6 @@ class HeaderSection extends StatelessWidget {
               icon: const Icon(Icons.smart_toy),
               label: const Text(
                 AppDataModel.playBots,
-                // style: TextStyle(color: Colors.white),
               ),
               style: ElevatedButton.styleFrom(
                 padding:

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/course_list_page.dart';
-import 'package:frontend/widgets/queue_manager.dart';
-import '../models/data_model.dart';
-import 'package:frontend/pages/user_profile_page.dart';
 import 'package:frontend/pages/admin_page.dart';
+import 'package:frontend/pages/course_list_page.dart';
+import 'package:frontend/pages/user_profile_page.dart';
+import 'package:frontend/widgets/queue_manager.dart';
+
+import '../models/data_model.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -16,7 +17,6 @@ class Sidebar extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Logo Section with Gradient
           Container(
             padding: const EdgeInsets.all(24.0),
             decoration: BoxDecoration(
@@ -56,10 +56,7 @@ class Sidebar extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 16),
-
-          // Navigation Section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
@@ -72,8 +69,6 @@ class Sidebar extends StatelessWidget {
               ),
             ),
           ),
-
-          // Navigation Buttons
           SidebarButton(
             title: "Play",
             icon: Icons.sports_esports,
@@ -110,10 +105,7 @@ class Sidebar extends StatelessWidget {
             icon: Icons.more_horiz,
             onTap: () {},
           ),
-
           const Spacer(),
-
-          // Bottom Auth Section
           Container(
             padding: const EdgeInsets.all(24.0),
             decoration: BoxDecoration(

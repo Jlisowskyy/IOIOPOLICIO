@@ -485,11 +485,9 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isSubmitting = true);
 
-      // Simulate API call
       Future.delayed(const Duration(seconds: 2), () {
         setState(() => _isSubmitting = false);
 
-        // Show success dialog
         showDialog(
           context: context,
           builder: (context) => AlertDialog(

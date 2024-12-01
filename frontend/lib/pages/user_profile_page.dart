@@ -83,9 +83,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.edit, color: Colors.white, size: 28),
-                  onPressed: () {
-                    // Implement edit functionality
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),

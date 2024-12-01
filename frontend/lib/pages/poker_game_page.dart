@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/models/data_model.dart';
-import 'package:frontend/models/poker_card.dart';
 import 'package:frontend/models/poker_deck.dart';
 import 'package:frontend/widgets/poker_game/action_button.dart';
 import 'package:frontend/widgets/poker_game/player_avatar.dart';
@@ -18,13 +17,11 @@ class _PokerGamePageState extends State<PokerGamePage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background poker table
           Positioned.fill(
             child: CustomPaint(
               painter: PokerTablePainter(),
             ),
           ),
-          // Overlay for players, game details, and actions
           Positioned.fill(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
