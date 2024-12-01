@@ -166,13 +166,13 @@ class _CourseStartPageState extends State<CourseStartPage>
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.2),
+                  color: Colors.red.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
                   "Question ${_currentQuestionIndex + 1}/${questionMocks.length}",
                   style: const TextStyle(
-                    color: Colors.blue,
+                    color: Colors.red,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),

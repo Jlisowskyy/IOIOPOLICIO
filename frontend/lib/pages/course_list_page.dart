@@ -202,7 +202,7 @@ class _CourseCardState extends State<CourseCard> {
                           _buildInfoChip(
                             Icons.access_time,
                             widget.course.formattedDuration,
-                            Colors.blue.withOpacity(0.1),
+                            Colors.red.withOpacity(0.1),
                             textColor:
                                 isUnlocked ? Colors.white : Colors.grey[500],
                           ),

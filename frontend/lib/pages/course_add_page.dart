@@ -75,7 +75,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue[900]!, Colors.blue[800]!],
+          colors: [Colors.red[900]!, Colors.red[800]!],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -98,7 +98,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
             "Create engaging content and share your knowledge with the community",
             style: TextStyle(
               fontSize: 16,
-              color: Colors.blue[100],
+              color: Colors.red[100],
             ),
           ),
         ],
@@ -247,7 +247,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(16),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.red,
                   ),
                   child: const Text(
                     "Add Topic",
@@ -265,9 +265,9 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
-                          color: Colors.blue.withOpacity(0.2),
+                          color: Colors.red.withOpacity(0.2),
                           border: Border.all(
-                            color: Colors.blue.withOpacity(0.3),
+                            color: Colors.red.withOpacity(0.3),
                           ),
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -292,7 +292,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
                               child: Icon(
                                 Icons.close,
                                 size: 18,
-                                color: Colors.blue[100],
+                                color: Colors.red[100],
                               ),
                             ),
                           ],
@@ -359,7 +359,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
         });
       },
       backgroundColor: Colors.grey[800],
-      selectedColor: Colors.blue.withOpacity(0.8),
+      selectedColor: Colors.red.withOpacity(0.8),
       checkmarkColor: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       labelStyle: TextStyle(
@@ -370,7 +370,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(
-          color: isSelected ? Colors.blue : Colors.transparent,
+          color: isSelected ? Colors.red : Colors.transparent,
           width: 1,
         ),
       ),
@@ -433,7 +433,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.red),
         ),
         filled: true,
         fillColor: Colors.grey[850],
@@ -472,7 +472,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.red),
         ),
         filled: true,
         fillColor: Colors.grey[850],

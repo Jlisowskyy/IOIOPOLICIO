@@ -90,7 +90,7 @@ class AdminDashboardScreen extends ConsumerWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.blue.withOpacity(0.8),
+            Colors.red.withOpacity(0.8),
             Colors.black,
           ],
         ),
@@ -109,7 +109,7 @@ class AdminDashboardScreen extends ConsumerWidget {
                     _buildStatusBadge(
                       icon: Icons.admin_panel_settings,
                       text: "Admin Control Panel",
-                      color: Colors.blue,
+                      color: Colors.red,
                     ),
                     const Spacer(),
                     _buildStatusBadge(
@@ -134,7 +134,7 @@ class AdminDashboardScreen extends ConsumerWidget {
                 Row(
                   children: [
                     _buildInfoChip(Icons.people, "1,234 Active Players",
-                        Colors.blue.withOpacity(0.2)),
+                        Colors.red.withOpacity(0.2)),
                     const SizedBox(width: 12),
                     _buildInfoChip(Icons.gamepad, "42 Ongoing Games",
                         Colors.green.withOpacity(0.2)),
@@ -345,7 +345,7 @@ class AdminDashboardScreen extends ConsumerWidget {
       spacing: 8,
       runSpacing: 8,
       children: [
-        _buildActionChip("Manage Players", Icons.people, Colors.blue),
+        _buildActionChip("Manage Players", Icons.people, Colors.red),
         _buildActionChip("Game Controls", Icons.gamepad, Colors.green),
         _buildActionChip("System Settings", Icons.settings, Colors.orange),
         _buildActionChip("View Reports", Icons.report, Colors.red),
@@ -481,7 +481,7 @@ class AdminDrawerMenu extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.blue.withOpacity(0.8),
+                    Colors.red.withOpacity(0.8),
                     Colors.black,
                   ],
                 ),
@@ -492,7 +492,7 @@ class AdminDrawerMenu extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.admin_panel_settings, color: Colors.blue),
+                    child: Icon(Icons.admin_panel_settings, color: Colors.red),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -557,7 +557,7 @@ class AdminDrawerMenu extends StatelessWidget {
         ),
       ),
       onTap: onTap,
-      hoverColor: Colors.blue.withOpacity(0.1),
+      hoverColor: Colors.red.withOpacity(0.1),
     );
   }
 }

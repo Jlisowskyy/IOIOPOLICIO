@@ -144,7 +144,7 @@ class CourseDetailPage extends StatelessWidget {
                 Row(
                   children: [
                     _buildInfoChip(Icons.person, course.instructor,
-                        Colors.blue.withOpacity(0.2)),
+                        Colors.red.withOpacity(0.2)),
                     const SizedBox(width: 12),
                     _buildInfoChip(Icons.access_time, course.formattedDuration,
                         Colors.green.withOpacity(0.2)),

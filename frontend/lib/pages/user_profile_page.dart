@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/data_model.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  String _profileImagePath = 'assets/default_profile.png';
+  final String _profileImagePath = AppDataModel.profilePath;
   final TextEditingController _usernameController =
       TextEditingController(text: 'ExampleUser');
   final TextEditingController _emailController =
@@ -103,7 +104,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.blue[900]!,
+            Colors.red[900]!,
             Colors.black,
           ],
         ),
@@ -138,7 +139,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     _buildInfoChip(
                       Icons.email,
                       _emailController.text,
-                      Colors.blue.withOpacity(0.2),
+                      Colors.red.withOpacity(0.2),
                     ),
                     const SizedBox(width: 12),
                     _buildInfoChip(
@@ -170,9 +171,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: LinearProgressIndicator(
-                    value: userStats['totalPoints'] / userStats['totalRequiredPoints'],
+                    value: userStats['totalPoints'] /
+                        userStats['totalRequiredPoints'],
                     backgroundColor: Colors.grey[800],
-                    color: Colors.blue,
+                    color: Colors.red,
                     minHeight: 20,
                   ),
                 ),
@@ -200,10 +202,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    color: Colors.red.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.red.withOpacity(0.3),
                     ),
                   ),
                   child: Row(
