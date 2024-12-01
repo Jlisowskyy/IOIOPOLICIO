@@ -1,5 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend/poker_theme.dart';
+
+// // Theme Configuration
+// final ThemeData sportsPokerTheme = ThemeData(
+//   brightness: Brightness.dark,
+//   primaryColor: Colors.red[900]!, // Deep red as the primary color
+//   colorScheme: ColorScheme(
+//     brightness: Brightness.dark,
+//     primary: Colors.red[900]!, // Matches the dominant red tones
+//     onPrimary: Colors.white, // Text on primary buttons
+//     secondary: Colors.amber[600]!, // Golden yellow for accents
+//     onSecondary: Colors.black, // Text on secondary elements
+//     surface: Color(0xFF1A1A1A), // Slightly lighter than black for card surfaces
+//     onSurface: Colors.white, // Text on surface
+//     error: Colors.redAccent, // Error colors
+//     onError: Colors.white, // Text for error messages
+//     background: Colors.black,
+//     onBackground: Colors.white,
+//   ),
+//   scaffoldBackgroundColor: Colors.black, // Matches the dark background
+//   textTheme: TextTheme(
+//     displayLarge: const TextStyle(
+//       color: Colors.white,
+//       fontSize: 32,
+//       fontWeight: FontWeight.bold,
+//     ),
+//     bodyLarge: TextStyle(
+//         color: Colors.grey[300], fontSize: 16, fontWeight: FontWeight.bold),
+//     bodyMedium: TextStyle(
+//         color: Colors.grey[400], fontSize: 14, fontWeight: FontWeight.bold),
+//   ),
+//   buttonTheme: ButtonThemeData(
+//     buttonColor: Colors.red[900], // Red for call-to-action buttons
+//     textTheme: ButtonTextTheme.primary,
+//     shape: RoundedRectangleBorder(
+//       borderRadius: BorderRadius.circular(8),
+//     ),
+//   ),
+//   appBarTheme: AppBarTheme(
+//     backgroundColor: Colors.red[900],
+//     foregroundColor: Colors.white,
+//     elevation: 0,
+//     titleTextStyle: const TextStyle(
+//       color: Colors.white,
+//       fontSize: 20,
+//       fontWeight: FontWeight.bold,
+//     ),
+//   ),
+// );
 
 // Main App
 class AdminPage extends StatelessWidget {
@@ -8,16 +57,7 @@ class AdminPage extends StatelessWidget {
     return ProviderScope(
       child: MaterialApp(
         title: 'Poker Platform Admin',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          brightness: Brightness.light,
-          appBarTheme: AppBarTheme(
-            elevation: 1,
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-          ),
-        ),
+        theme: sportsPokerTheme, // Apply Sports Poker Theme
         home: AdminDashboardScreen(),
       ),
     );
@@ -29,7 +69,7 @@ class AdminDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: Text('Admin Dashboard')),
+      appBar: AppBar(title: const Text('Admin Dashboard')),
       drawer: AdminDrawerMenu(),
       body: SingleChildScrollView(
         child: Padding(
@@ -37,11 +77,13 @@ class AdminDashboardScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildMetricCard('Active Players', '1,234', Icons.people),
-              _buildMetricCard('Ongoing Games', '42', Icons.gamepad),
               _buildMetricCard(
-                  'Total Users', '5,678', Icons.supervisor_account),
-              _buildRecentReportsSection(),
+                  'Active Players', '1,234', Icons.people, context),
+              _buildMetricCard(
+                  'Ongoing Games', '42', Icons.gamepad, context),
+              _buildMetricCard(
+                  'Total Users', '5,678', Icons.supervisor_account, context),
+              _buildRecentReportsSection(context),
             ],
           ),
         ),
@@ -49,25 +91,35 @@ class AdminDashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMetricCard(String title, String value, IconData icon) {
+  Widget _buildMetricCard(
+      String title, String value, IconData icon, BuildContext context) {
     return Card(
+      color: Theme.of(context).colorScheme.surface,
       elevation: 4,
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(icon, size: 40, color: Colors.blue),
-        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        leading: Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
+        title: Text(title,
+            style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+                fontWeight: FontWeight.bold)),
         trailing: Text(
           value,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).textTheme.bodyLarge?.color,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildRecentReportsSection() {
+  Widget _buildRecentReportsSection(BuildContext context) {
     return Card(
+      color: Theme.of(context).colorScheme.surface,
       elevation: 4,
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -75,18 +127,31 @@ class AdminDashboardScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(12.0),
             child: Text(
               'Recent Reports',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
             ),
           ),
           ListTile(
-            title: Text('Suspicious Activity Detected'),
-            subtitle: Text('User: @player123'),
-            trailing: Text('2 hours ago', style: TextStyle(color: Colors.grey)),
+            title: Text('Suspicious Activity Detected',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color)),
+            subtitle: Text('User: @player123',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color)),
+            trailing: Text('2 hours ago',
+                style: TextStyle(color: Colors.grey[600])),
           ),
           ListTile(
-            title: Text('Game Violation'),
-            subtitle: Text('Game ID: #5678'),
-            trailing: Text('Today', style: TextStyle(color: Colors.grey)),
+            title: Text('Game Violation',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color)),
+            subtitle: Text('Game ID: #5678',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color)),
+            trailing:
+                Text('Today', style: TextStyle(color: Colors.grey[600])),
           ),
         ],
       ),
@@ -99,96 +164,82 @@ class AdminDrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.admin_panel_settings, color: Colors.blue),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Admin Control Panel',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    child: Icon(Icons.admin_panel_settings,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Admin Control Panel',
+                    style: Theme.of(context)
+                        .appBarTheme
+                        .titleTextStyle
+                        ?.copyWith(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-          ),
-          _buildDrawerItem(
-            icon: Icons.dashboard,
-            title: 'Dashboard',
-            onTap: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => AdminDashboardScreen())),
-          ),
-          _buildDrawerItem(
-            icon: Icons.people,
-            title: 'Player Management',
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => PlayerManagementScreen())),
-          ),
-          _buildDrawerItem(
-            icon: Icons.gamepad,
-            title: 'Game Management',
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => GameManagementScreen())),
-          ),
-          _buildDrawerItem(
-            icon: Icons.school,
-            title: 'Course Management',
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => CourseManagementScreen())),
-          ),
-          _buildDrawerItem(
-            icon: Icons.analytics,
-            title: 'Reporting',
-            onTap: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => ReportingScreen())),
-          ),
-          _buildDrawerItem(
-            icon: Icons.badge,
-            title: 'Badges',
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => BadgeManagementScreen())),
-          ),
-          _buildDrawerItem(
-            icon: Icons.settings,
-            title: 'System Settings',
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => SystemSettingsScreen())),
-          ),
-        ],
+            _buildDrawerItem(
+              icon: Icons.dashboard,
+              title: 'Dashboard',
+              onTap: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => AdminDashboardScreen())),
+              context: context,
+            ),
+            _buildDrawerItem(
+              icon: Icons.people,
+              title: 'Player Management',
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => PlayerManagementScreen())),
+              context: context,
+            ),
+            _buildDrawerItem(
+              icon: Icons.gamepad,
+              title: 'Game Management',
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => GameManagementScreen())),
+              context: context,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildDrawerItem(
-      {required IconData icon,
-      required String title,
-      required VoidCallback onTap}) {
+  Widget _buildDrawerItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    required BuildContext context,
+  }) {
     return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
+      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurface),
+      title: Text(title,
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
       onTap: onTap,
     );
   }
 }
 
-// Placeholder Screens (to demonstrate navigation)
+// Placeholder Screens
 class PlayerManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Player Management')),
-      body: Center(child: Text('Player Management Screen')),
+      appBar: AppBar(title: const Text('Player Management')),
+      body: const Center(child: Text('Player Management Screen')),
     );
   }
 }
@@ -197,48 +248,8 @@ class GameManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Game Management')),
-      body: Center(child: Text('Game Management Screen')),
-    );
-  }
-}
-
-class CourseManagementScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Course Management')),
-      body: Center(child: Text('Course Management Screen')),
-    );
-  }
-}
-
-class ReportingScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Reporting and Analytics')),
-      body: Center(child: Text('Reporting Screen')),
-    );
-  }
-}
-
-class BadgeManagementScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Badge Management')),
-      body: Center(child: Text('Badge Management Screen')),
-    );
-  }
-}
-
-class SystemSettingsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('System Settings')),
-      body: Center(child: Text('System Settings Screen')),
+      appBar: AppBar(title: const Text('Game Management')),
+      body: const Center(child: Text('Game Management Screen')),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/admin_page.dart';
 import 'package:frontend/pages/sports_poker_main_page.dart';
 import 'package:frontend/poker_theme.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SportsPoker.com',
       theme: sportsPokerTheme,
-      home: const SportsPokerMainPage(),
+      home: AdminPage(),
     );
   }
 }
