@@ -139,6 +139,7 @@ class _CourseStartPageState extends State<CourseStartPage>
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
@@ -263,7 +264,8 @@ class _CourseStartPageState extends State<CourseStartPage>
               Navigator.pop(context);
               setState(() => _currentQuestionIndex = 0);
             },
-            child: const Text("Try Again"),
+            child:
+                const Text("Try Again", style: TextStyle(color: Colors.blue)),
           ),
         ],
       ),
