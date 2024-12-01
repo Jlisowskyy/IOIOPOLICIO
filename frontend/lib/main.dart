@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SportsPoker.com',
       theme: sportsPokerTheme,
-      home: PokerGamePage(),
+      home: const SportsPokerMainPage(),
     );
   }
 }

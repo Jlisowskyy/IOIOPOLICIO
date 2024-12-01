@@ -52,6 +52,8 @@ import 'package:frontend/poker_theme.dart';
 
 // Main App
 class AdminPage extends StatelessWidget {
+  const AdminPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -66,6 +68,8 @@ class AdminPage extends StatelessWidget {
 
 // Dashboard Screen
 class AdminDashboardScreen extends ConsumerWidget {
+  const AdminDashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -79,8 +83,7 @@ class AdminDashboardScreen extends ConsumerWidget {
             children: [
               _buildMetricCard(
                   'Active Players', '1,234', Icons.people, context),
-              _buildMetricCard(
-                  'Ongoing Games', '42', Icons.gamepad, context),
+              _buildMetricCard('Ongoing Games', '42', Icons.gamepad, context),
               _buildMetricCard(
                   'Total Users', '5,678', Icons.supervisor_account, context),
               _buildRecentReportsSection(context),
@@ -98,7 +101,8 @@ class AdminDashboardScreen extends ConsumerWidget {
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
+        leading:
+            Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
         title: Text(title,
             style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge?.color,
@@ -140,8 +144,8 @@ class AdminDashboardScreen extends ConsumerWidget {
             subtitle: Text('User: @player123',
                 style: TextStyle(
                     color: Theme.of(context).textTheme.bodyMedium?.color)),
-            trailing: Text('2 hours ago',
-                style: TextStyle(color: Colors.grey[600])),
+            trailing:
+                Text('2 hours ago', style: TextStyle(color: Colors.grey[600])),
           ),
           ListTile(
             title: Text('Game Violation',
@@ -150,8 +154,7 @@ class AdminDashboardScreen extends ConsumerWidget {
             subtitle: Text('Game ID: #5678',
                 style: TextStyle(
                     color: Theme.of(context).textTheme.bodyMedium?.color)),
-            trailing:
-                Text('Today', style: TextStyle(color: Colors.grey[600])),
+            trailing: Text('Today', style: TextStyle(color: Colors.grey[600])),
           ),
         ],
       ),
@@ -161,6 +164,8 @@ class AdminDashboardScreen extends ConsumerWidget {
 
 // Admin Drawer Menu
 class AdminDrawerMenu extends StatelessWidget {
+  const AdminDrawerMenu({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -235,6 +240,8 @@ class AdminDrawerMenu extends StatelessWidget {
 
 // Placeholder Screens
 class PlayerManagementScreen extends StatelessWidget {
+  const PlayerManagementScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -245,6 +252,8 @@ class PlayerManagementScreen extends StatelessWidget {
 }
 
 class GameManagementScreen extends StatelessWidget {
+  const GameManagementScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
