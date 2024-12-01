@@ -8,15 +8,12 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  // Profile image
   String _profileImagePath = 'assets/default_profile.png';
 
-  // User profile data
   final TextEditingController _usernameController = TextEditingController(text: 'ExampleUser');
   final TextEditingController _emailController = TextEditingController(text: 'user@example.com');
   final TextEditingController _passwordController = TextEditingController();
 
-  // User statistics
   final Map<String, dynamic> userStats = {
     'totalPoints': 250,
     'rank': 'Intermediate',
@@ -38,8 +35,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
   void _updateProfile() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Profile updated successfully'),
-        backgroundColor: Colors.green[700],
+        content: const Text('Profile updated successfully'),
+        backgroundColor: Colors.amber[600],
       ),
     );
   }
@@ -48,12 +45,19 @@ class _UserProfilePageState extends State<UserProfilePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(badge['name']),
-        content: Text(badge['description']),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          badge['name'],
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.amber[600]),
+        ),
+        content: Text(
+          badge['description'],
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Close'),
+            child: Text('Close', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
           ),
         ],
       ),
@@ -63,26 +67,23 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('User Profile', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.deepPurple,
-        elevation: 0,
+        title: const Text('User Profile'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Photo and Basic Info
             Card(
+              color: Theme.of(context).colorScheme.surface,
               elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
-                    // Profile Picture
                     Stack(
                       children: [
                         CircleAvatar(
@@ -94,7 +95,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           right: 0,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
@@ -104,7 +105,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ],
                             ),
                             child: IconButton(
-                              icon: Icon(Icons.edit, color: Colors.deepPurple),
+                              icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.primary),
                               onPressed: () {
                                 // TODO: Implement image upload
                               },
@@ -113,22 +114,18 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         ),
                       ],
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             _usernameController.text,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 20),
                           ),
                           Text(
                             _emailController.text,
-                            style: TextStyle(color: Colors.grey[600]),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       ),
@@ -138,10 +135,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-            // Profile Update Section
             Card(
+              color: Theme.of(context).colorScheme.surface,
               elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Padding(
@@ -150,54 +147,51 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     TextField(
                       controller: _usernameController,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       decoration: InputDecoration(
                         labelText: 'Username',
                         hintText: 'Enter new username',
-                        prefixIcon: Icon(Icons.person, color: Colors.deepPurple),
+                        prefixIcon: Icon(Icons.person, color: Theme.of(context).colorScheme.primary),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     TextField(
                       controller: _emailController,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         hintText: 'Enter new email',
-                        prefixIcon: Icon(Icons.email, color: Colors.deepPurple),
+                        prefixIcon: Icon(Icons.email, color: Theme.of(context).colorScheme.primary),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: _updateProfile,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Text(
-                      'Update Profile',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white, // Set text color to white
-                      ),
-                    ),
+                      child: const Text('Update Profile'),
                     ),
                   ],
                 ),
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-            // User Statistics and Rank
             Card(
+              color: Theme.of(context).colorScheme.surface,
               elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Padding(
@@ -207,43 +201,39 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.leaderboard, color: Colors.deepPurple),
-                        SizedBox(width: 8),
+                        Icon(Icons.leaderboard, color: Theme.of(context).colorScheme.primary),
+                        const SizedBox(width: 8),
                         Text(
                           'User Statistics',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
                       'Current Rank: ${userStats['rank']}',
-                      style: TextStyle(fontSize: 16),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     LinearProgressIndicator(
                       value: userStats['totalPoints'] / userStats['totalRequiredPoints'],
-                      backgroundColor: Colors.grey[300],
-                      color: Colors.deepPurple,
+                      backgroundColor: Colors.grey[800],
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       '${userStats['totalPoints']} / ${userStats['totalRequiredPoints']} points to ${userStats['nextRank']}',
-                      style: TextStyle(color: Colors.grey[600]),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-            // Badges Section
             Card(
+              color: Theme.of(context).colorScheme.surface,
               elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Padding(
@@ -253,19 +243,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.account_balance, color: Colors.deepPurple),
-                        SizedBox(width: 8),
+                        Icon(Icons.account_balance, color: Theme.of(context).colorScheme.primary),
+                        const SizedBox(width: 8),
                         Text(
                           'Badges',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 18),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Wrap(
                       spacing: 8,
                       children: userStats['badges'].map<Widget>((badge) {
@@ -274,100 +260,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           child: Chip(
                             label: Text(badge['name']),
                             avatar: Icon(badge['icon'], size: 16),
-                            backgroundColor: Colors.deepPurple.shade50,
+                            backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                           ),
                         );
                       }).toList(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            SizedBox(height: 16),
-
-            // Game History Section
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.history, color: Colors.deepPurple),
-                        SizedBox(width: 8),
-                        Text(
-                          'Game History',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    Table(
-                      columnWidths: {
-                        0: FlexColumnWidth(2),
-                        1: FlexColumnWidth(1),
-                        2: FlexColumnWidth(1),
-                      },
-                      children: [
-                        TableRow(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Date', style: TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Result', style: TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Points', style: TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ],
-                        ),
-                        ...userStats['gameHistory'].map<TableRow>((game) {
-                          return TableRow(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(game['date']),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  game['result'],
-                                  style: TextStyle(
-                                    color: game['color'],
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  game['points'],
-                                  style: TextStyle(
-                                    color: game['color'],
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        }).toList(),
-                      ],
                     ),
                   ],
                 ),
