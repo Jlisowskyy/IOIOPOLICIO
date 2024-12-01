@@ -45,11 +45,12 @@ class _PokerGamePageState extends State<PokerGamePage> {
     return const Padding(
       padding: EdgeInsets.all(16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           PlayerAvatar(
               playerName: 'Player 1',
               avatarPath: AppDataModel.player1ImagePath),
+          SizedBox(width: 32),
           PlayerAvatar(
               playerName: 'Player 2',
               avatarPath: AppDataModel.player2ImagePath),
