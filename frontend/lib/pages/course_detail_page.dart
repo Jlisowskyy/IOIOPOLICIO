@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/course_model.dart';
+import 'course_start_page.dart';
 
 class CourseDetailPage extends StatelessWidget {
   final CourseModel course;
@@ -255,7 +256,14 @@ class CourseDetailPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: isUnlocked
                     ? () {
-                        // Handle course start
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CourseStartPage(
+                              course: course,
+                            ),
+                          ),
+                        );
                       }
                     : () {
                         _showPrerequisitesDialog(context, missingPrerequisites);
