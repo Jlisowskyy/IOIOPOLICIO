@@ -26,7 +26,6 @@ class HeaderSection extends StatelessWidget {
                 fontSize: 64,
                 fontWeight: FontWeight.bold,
                 letterSpacing: -1,
-                height: 1.1,
               ),
               textAlign: TextAlign.center,
             ),
