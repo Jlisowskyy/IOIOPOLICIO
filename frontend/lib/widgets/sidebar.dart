@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widgets/queue_manager.dart';
-import '../models/data_model.dart';
-import 'package:frontend/pages/user_profile_page.dart';
 import 'package:frontend/pages/admin_page.dart';
+import 'package:frontend/pages/course_list_page.dart';
+import 'package:frontend/pages/user_profile_page.dart';
+import 'package:frontend/widgets/queue_manager.dart';
+
+import '../models/data_model.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -35,7 +37,13 @@ class Sidebar extends StatelessWidget {
               onTap: () {
                 QueueManager.navigateToPokerGame(context);
               }),
-          SidebarButton(title: "Learn", icon: Icons.school, onTap: () {}),
+          SidebarButton(
+              title: "Learn",
+              icon: Icons.school,
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => CourseListPage()));
+              }),
           SidebarButton(
               title: "Profile",
               icon: Icons.people,
