@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/admin_page.dart';
 import 'package:frontend/pages/sports_poker_main_page.dart';
 import 'package:frontend/pages/user_profile_page.dart';
 
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: UserProfilePage(),
+      body: PokerAdminApp(),
     );
   }
 }
