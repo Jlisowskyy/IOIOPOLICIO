@@ -249,7 +249,10 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
                     padding: const EdgeInsets.all(16),
                     backgroundColor: Colors.blue,
                   ),
-                  child: const Text("Add Topic"),
+                  child: const Text(
+                    "Add Topic",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ],
             ),
@@ -394,6 +397,7 @@ class _CourseCreatorPageState extends State<CourseCreatorPage> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
         ),

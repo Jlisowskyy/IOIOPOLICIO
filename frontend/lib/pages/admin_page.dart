@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/poker_theme.dart';
 
+import '../pages/course_add_page.dart';
+
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
 
@@ -137,8 +139,8 @@ class AdminDashboardScreen extends ConsumerWidget {
                     _buildInfoChip(Icons.gamepad, "42 Ongoing Games",
                         Colors.green.withOpacity(0.2)),
                     const SizedBox(width: 12),
-                    _buildInfoChip(Icons.supervisor_account, "5,678 Total Users",
-                        Colors.purple.withOpacity(0.2)),
+                    _buildInfoChip(Icons.supervisor_account,
+                        "5,678 Total Users", Colors.purple.withOpacity(0.2)),
                   ],
                 ),
               ],
@@ -428,7 +430,8 @@ class AdminDashboardScreen extends ConsumerWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -489,8 +492,7 @@ class AdminDrawerMenu extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.admin_panel_settings,
-                        color: Colors.blue),
+                    child: Icon(Icons.admin_panel_settings, color: Colors.blue),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -508,21 +510,29 @@ class AdminDrawerMenu extends StatelessWidget {
               icon: Icons.dashboard,
               title: 'Dashboard',
               onTap: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => const AdminDashboardScreen())),
+                  MaterialPageRoute(
+                      builder: (_) => const AdminDashboardScreen())),
               context: context,
             ),
             _buildDrawerItem(
               icon: Icons.people,
               title: 'Player Management',
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const PlayerManagementScreen())),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const PlayerManagementScreen())),
               context: context,
             ),
             _buildDrawerItem(
               icon: Icons.gamepad,
               title: 'Game Management',
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const GameManagementScreen())),
+              context: context,
+            ),
+            _buildDrawerItem(
+              icon: Icons.add,
+              title: 'Add Course',
               onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const GameManagementScreen())),
+                  MaterialPageRoute(builder: (_) => const CourseCreatorPage())),
               context: context,
             ),
           ],
@@ -592,7 +602,8 @@ class PlayerManagementScreen extends StatelessWidget {
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+                  icon: const Icon(Icons.arrow_back,
+                      color: Colors.white, size: 28),
                   onPressed: () => Navigator.pop(context),
                 ),
                 const Text(
@@ -697,7 +708,8 @@ class GameManagementScreen extends StatelessWidget {
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+                  icon: const Icon(Icons.arrow_back,
+                      color: Colors.white, size: 28),
                   onPressed: () => Navigator.pop(context),
                 ),
                 const Text(
