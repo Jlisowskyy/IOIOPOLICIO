@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/data_model.dart';
+import 'package:frontend/pages/user_profile_page.dart';
+import 'package:frontend/pages/admin_page.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -29,7 +31,20 @@ class Sidebar extends StatelessWidget {
           SidebarButton(title: "Play", icon: Icons.sports, onTap: () {}),
           SidebarButton(title: "Puzzles", icon: Icons.extension, onTap: () {}),
           SidebarButton(title: "Learn", icon: Icons.school, onTap: () {}),
-          SidebarButton(title: "Profile", icon: Icons.people, onTap: () {}),
+          SidebarButton(
+              title: "Profile",
+              icon: Icons.people,
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const UserProfilePage()));
+              }),
+          SidebarButton(
+              title: "Admin",
+              icon: Icons.admin_panel_settings,
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => AdminPage()));
+              }),
           SidebarButton(title: "More", icon: Icons.more_horiz, onTap: () {}),
           const Spacer(),
           // Bottom Buttons

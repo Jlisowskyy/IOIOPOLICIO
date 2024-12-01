@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Main App
-class PokerAdminApp extends StatelessWidget {
+class AdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -39,7 +39,8 @@ class AdminDashboardScreen extends ConsumerWidget {
             children: [
               _buildMetricCard('Active Players', '1,234', Icons.people),
               _buildMetricCard('Ongoing Games', '42', Icons.gamepad),
-              _buildMetricCard('Total Users', '5,678', Icons.supervisor_account),
+              _buildMetricCard(
+                  'Total Users', '5,678', Icons.supervisor_account),
               _buildRecentReportsSection(),
             ],
           ),
@@ -56,7 +57,7 @@ class AdminDashboardScreen extends ConsumerWidget {
         leading: Icon(icon, size: 40, color: Colors.blue),
         title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
         trailing: Text(
-          value, 
+          value,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
         ),
       ),
@@ -73,7 +74,7 @@ class AdminDashboardScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              'Recent Reports', 
+              'Recent Reports',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
@@ -113,75 +114,66 @@ class AdminDrawerMenu extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Admin Control Panel', 
+                  'Admin Control Panel',
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 18, 
-                    fontWeight: FontWeight.bold
-                  ),
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
           _buildDrawerItem(
-            icon: Icons.dashboard, 
-            title: 'Dashboard', 
+            icon: Icons.dashboard,
+            title: 'Dashboard',
             onTap: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => AdminDashboardScreen())
-            ),
+                MaterialPageRoute(builder: (_) => AdminDashboardScreen())),
           ),
           _buildDrawerItem(
-            icon: Icons.people, 
-            title: 'Player Management', 
+            icon: Icons.people,
+            title: 'Player Management',
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => PlayerManagementScreen())
-            ),
+                MaterialPageRoute(builder: (_) => PlayerManagementScreen())),
           ),
           _buildDrawerItem(
-            icon: Icons.gamepad, 
-            title: 'Game Management', 
+            icon: Icons.gamepad,
+            title: 'Game Management',
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => GameManagementScreen())
-            ),
+                MaterialPageRoute(builder: (_) => GameManagementScreen())),
           ),
           _buildDrawerItem(
-            icon: Icons.school, 
-            title: 'Course Management', 
+            icon: Icons.school,
+            title: 'Course Management',
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => CourseManagementScreen())
-            ),
+                MaterialPageRoute(builder: (_) => CourseManagementScreen())),
           ),
           _buildDrawerItem(
-            icon: Icons.analytics, 
-            title: 'Reporting', 
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => ReportingScreen())
-            ),
+            icon: Icons.analytics,
+            title: 'Reporting',
+            onTap: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => ReportingScreen())),
           ),
           _buildDrawerItem(
-            icon: Icons.badge, 
-            title: 'Badges', 
+            icon: Icons.badge,
+            title: 'Badges',
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => BadgeManagementScreen())
-            ),
+                MaterialPageRoute(builder: (_) => BadgeManagementScreen())),
           ),
           _buildDrawerItem(
-            icon: Icons.settings, 
-            title: 'System Settings', 
+            icon: Icons.settings,
+            title: 'System Settings',
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => SystemSettingsScreen())
-            ),
+                MaterialPageRoute(builder: (_) => SystemSettingsScreen())),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDrawerItem({
-    required IconData icon, 
-    required String title, 
-    required VoidCallback onTap
-  }) {
+  Widget _buildDrawerItem(
+      {required IconData icon,
+      required String title,
+      required VoidCallback onTap}) {
     return ListTile(
       leading: Icon(icon),
       title: Text(title),
