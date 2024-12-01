@@ -11,7 +11,16 @@ class CourseListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.red[900]!,
+              Colors.black,
+            ],
+          ),
+        ),
         child: SingleChildScrollView(
           child: Center(
             child: ConstrainedBox(
