@@ -11,7 +11,6 @@ class SportsPokerMainPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image with overlay
           ShaderMask(
             shaderCallback: (bounds) => const LinearGradient(
               begin: Alignment.topCenter,
@@ -31,7 +30,6 @@ class SportsPokerMainPage extends StatelessWidget {
               alignment: Alignment.center,
             ),
           ),
-          // Red gradient overlay
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -52,7 +50,6 @@ class SportsPokerMainPage extends StatelessWidget {
                   child: Column(
                     children: [
                       HeaderSection(),
-                      // Add more sections here
                     ],
                   ),
                 ),
